@@ -11,3 +11,5 @@ logs
 npm-debug.log*
 # Gatsby files
 .cache/
+.parcel-cache/
+dist/
