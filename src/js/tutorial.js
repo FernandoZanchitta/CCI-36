@@ -198,8 +198,7 @@ function animate(time){
   spotLight.penumbra = options.penumbra;
   spotLight.intensity = options.intensity;
   sLightHelper.update();
-  rayCaster.setFromCamera(mousePosition,camera);
-  const intersects = rayCaster. intersectObjects(scene.children);
+q  const intersects = rayCaster. intersectObjects(scene.children);
   console.log(intersects);
   for(let i = 0; i < intersects.length ; i ++){
     if(intersects[i].object.id === sphereId)

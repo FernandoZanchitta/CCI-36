@@ -2,10 +2,11 @@ import * as THREE from 'three'
 import { BufferGeometry } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import * as dat from 'dat.gui';
 
 // CAMERA
 const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 1500);
-camera.position.set(-35, 70, 100);
+camera.position.set(0, 200, 0);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
 // RENDERER
@@ -30,11 +31,7 @@ scene.background = new THREE.Color(0xbfd1e5);
 // CONTROLS
 const controls = new OrbitControls(camera, renderer.domElement);
 
-export function animate() {
-  dragObject();
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-}
+
 
 // ambient light
 let hemiLight = new THREE.AmbientLight(0xffffff, 0.20);
@@ -83,22 +80,30 @@ function createBox() {
   box.userData.draggable = true
   box.userData.name = 'BOX'
 }
-function createBox2() {
-    let scale = { x: 10, y: 10, z: 1 }
-    let pos = { x: 10, y: scale.y / 2, z: 15 }
-  
-    let box = new THREE.Mesh(new THREE.PlaneGeometry(), 
-        new THREE.MeshPhongMaterial({ color: 073763 }));
-    box.rotation.x = -0.5 * Math.PI;
-    box.position.set(pos.x, pos.y, pos.z);
-    box.position.y -= scale.y/2 -1/2;
-    box.scale.set(scale.x, scale.y, scale.z);
-    box.castShadow = true;
-    box.receiveShadow = true;
-    scene.add(box)
-  
-    box.userData.draggable = true
-    box.userData.name = 'BOX2'
+function createSquare() {
+  let scale = { x: 10, y: 1, z: 10}
+    let pos = { x: -1.7, y: scale.y / 2, z: 25 }
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    vertices.push( 0, 0, 0 );
+    vertices.push( 0, 0, 1 );
+    vertices.push( 1, 0, 1 );
+    vertices.push( 1, 0, 1 );
+    vertices.push( 1, 0, 0 );
+    vertices.push( 0, 0, 0 );
+    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+
+    const parallelogram = new THREE.Mesh(geometry, 
+        new THREE.MeshBasicMaterial({ color: 0x33ff66 }));
+    parallelogram.position.set(pos.x, pos.y, pos.z);
+    parallelogram.scale.set(scale.x, scale.y, scale.z);
+    parallelogram.castShadow = true;
+    parallelogram.receiveShadow = true;
+    scene.add(parallelogram)
+    parallelogram.rotation.y = Math.PI/4;
+    parallelogram.userData.draggable = true
+    parallelogram.userData.name = 'SQUARE'
+    return parallelogram;
   }
 
   function createTrianglelarge1() {
@@ -111,20 +116,21 @@ function createBox2() {
     vertices.push( 1, 0, 1 );
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-    let triangle = new THREE.Mesh(geometry, 
+    const triangle = new THREE.Mesh(geometry, 
         new THREE.MeshBasicMaterial({ color: 0x6FA8DC }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
     triangle.castShadow = true;
     triangle.receiveShadow = true;
-    scene.add(triangle)
-  
-    triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLE1'
+    scene.add(triangle);
+    triangle.rotation.y = Math.PI/4;
+    triangle.userData.draggable = true;
+    triangle.userData.name = 'TRIANGLEL1';
+    return triangle;
   }
   function createTrianglelarge2() {
     let scale = { x: 20, y: 1, z: 20}
-    let pos = { x: -30, y: scale.y / 2, z: -10 }
+    let pos = { x: -1.8, y: scale.y / 2, z: 53.5 }
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     vertices.push( 1, 0, 0 );
@@ -132,7 +138,7 @@ function createBox2() {
     vertices.push( 1, 0, 1 );
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-    let triangle = new THREE.Mesh(geometry, 
+    const triangle = new THREE.Mesh(geometry, 
         new THREE.MeshBasicMaterial({ color: 0x674EA7 }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
@@ -140,13 +146,15 @@ function createBox2() {
     triangle.receiveShadow = true;
     scene.add(triangle)
   
-    triangle.userData.draggable = true
+    triangle.userData.draggable = true;
+    triangle.rotation.y = 3*Math.PI/4;
     triangle.userData.name = 'TRIANGLE2'
+    return triangle;
   }
 
   function createTriangleMedium1() {
     let scale = { x: 10*Math.sqrt(2), y: 1, z: 10*Math.sqrt(2) }
-    let pos = { x: -10, y: scale.y / 2, z: 25 }
+    let pos = { x: -1, y: scale.y / 2, z: 25 }
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     vertices.push( 1, 0, 0 );
@@ -154,21 +162,22 @@ function createBox2() {
     vertices.push( 1, 0, 1 );
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-    let triangle = new THREE.Mesh(geometry, 
+    const triangle = new THREE.Mesh(geometry, 
         new THREE.MeshBasicMaterial({ color: 0xDC143C }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
     triangle.castShadow = true;
     triangle.receiveShadow = true;
     scene.add(triangle)
-  
+    triangle.rotation.y = Math.PI/2;
     triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLE3'
+    triangle.userData.name = 'TRIANGLEM1'
+    return triangle;
   }
 
   function createTriangleSmall1() {
     let scale = { x: 10, y: 1, z: 10}
-    let pos = { x: -20, y: scale.y / 2, z: -5 }
+    let pos = { x: 19.5, y: scale.y / 2, z: 32.5 }
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     vertices.push( 1, 0, 0 );
@@ -176,21 +185,22 @@ function createBox2() {
     vertices.push( 1, 0, 1 );
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-    let triangle = new THREE.Mesh(geometry, 
+    const triangle = new THREE.Mesh(geometry, 
         new THREE.MeshBasicMaterial({ color: 0xDC143C }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
     triangle.castShadow = true;
     triangle.receiveShadow = true;
     scene.add(triangle)
-  
+    triangle.rotation.y = 5*Math.PI/4;
     triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLE4'
+    triangle.userData.name = 'TRIANGLES1'
+    return triangle;
   }
 
   function createTriangleSmall2() {
     let scale = { x: 10, y: 1, z: 10}
-    let pos = { x: -25, y: scale.y / 2, z: -8 }
+    let pos = { x: -1.5, y: scale.y / 2, z: 10.5 }
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     vertices.push( 1, 0, 0 );
@@ -198,47 +208,44 @@ function createBox2() {
     vertices.push( 1, 0, 1 );
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-    let triangle = new THREE.Mesh(geometry, 
+    const triangle = new THREE.Mesh(geometry, 
         new THREE.MeshBasicMaterial({ color: 0xBF9000 }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
     triangle.castShadow = true;
     triangle.receiveShadow = true;
     scene.add(triangle)
-  
+    triangle.rotation.y = -Math.PI/4;
     triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLE5'
+    triangle.userData.name = 'TRIANGLES2'
+    return triangle;
   }
-function createSphere() {
-  let radius = 4;
-  let pos = { x: 15, y: radius, z: -15 };
+function createParallegram(){
+  let scale = { x: 10, y: 1, z: 10}
+    let pos = { x: -8.5, y: scale.y / 2, z: 3.5 }
+    const geometry = new THREE.BufferGeometry();
+    const vertices = [];
+    vertices.push( 1, 0, 0 );
+    vertices.push( 0, 0, 1 );
+    vertices.push( 1, 0, 1 );
+    vertices.push( 1, 0, 1 );
+    vertices.push( 2, 0, 0 );
+    vertices.push( 1, 0, 0 );
+    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
-  let sphere = new THREE.Mesh(new THREE.SphereBufferGeometry(radius, 32, 32), 
-      new THREE.MeshPhongMaterial({ color: 0x43a1f4 }))
-  sphere.position.set(pos.x, pos.y, pos.z)
-  sphere.castShadow = true
-  sphere.receiveShadow = true
-  scene.add(sphere)
-
-  sphere.userData.draggable = true
-  sphere.userData.name = 'SPHERE'
+    const parallelogram = new THREE.Mesh(geometry, 
+        new THREE.MeshBasicMaterial({ color: 0xF945c0 }));
+    parallelogram.position.set(pos.x, pos.y, pos.z);
+    parallelogram.scale.set(scale.x, scale.y, scale.z);
+    parallelogram.castShadow = true;
+    parallelogram.receiveShadow = true;
+    scene.add(parallelogram)
+    parallelogram.rotation.y = -Math.PI/4;
+    parallelogram.userData.draggable = true
+    parallelogram.userData.name = 'PARALLELOGRAM'
+    return parallelogram;
 }
 
-function createCylinder() {
-  let radius = 4;
-  let height = 6
-  let pos = { x: -15, y: height / 2, z: 15 };
-
-  // threejs
-  let cylinder = new THREE.Mesh(new THREE.CylinderBufferGeometry(radius, radius, height, 32), new THREE.MeshPhongMaterial({ color: 0x90ee90 }))
-  cylinder.position.set(pos.x, pos.y, pos.z)
-  cylinder.castShadow = true
-  cylinder.receiveShadow = true
-  scene.add(cylinder)
-
-  cylinder.userData.draggable = true
-  cylinder.userData.name = 'CYLINDER'
-}
 
 
 const raycaster = new THREE.Raycaster(); // create once
@@ -292,15 +299,43 @@ function dragObject() {
   }
 }
 
-
 createFloor()
 // createBox()
-createBox2()
+const square = createSquare();
 // createSphere()
 // createCylinder()
-createTrianglelarge1()
-createTrianglelarge2()
-createTriangleMedium1()
-createTriangleSmall1()
-createTriangleSmall2()
+const triangleL1 = createTrianglelarge1();
+const triangleL2 = createTrianglelarge2()
+const triangleM1 = createTriangleMedium1()
+const triangleS1 = createTriangleSmall1()
+const triangleS2 = createTriangleSmall2()
+const parallelogram = createParallegram();
+
+const gui = new dat.GUI();
+// const options = {
+//   angleTriangleLarge1: 0.2,
+//   angleTriangleLarge2: 0.2,
+//   angleTriangleMedium1: 0.2,
+//   angleTriangleSmall1: 0.2,
+//   : 0.2,
+//   angleSquare: 0.2,
+//   angleParelelogram: 0.2
+// };
+
+gui.add(triangleL1.rotation,'y',0,2*Math.PI).name('angleLarge1');
+gui.add(triangleL2.rotation,'y',0,2*Math.PI).name('angleLarge2');
+gui.add(triangleM1.rotation,'y',0,2*Math.PI).name('angleMedium1');
+gui.add(triangleS1.rotation,'y',0,2*Math.PI).name('angleSmall1');
+gui.add(triangleS2.rotation,'y',0,2*Math.PI).name('angleSmall2');
+gui.add(square.rotation,'y',0,2*Math.PI).name('angleSquare');
+gui.add(parallelogram.rotation,'y',0,2*Math.PI).name('angleParallelogram');
+
+
+function animate() {
+  // triangleL1.rotation.z += options.angleTriangleLarge1 * 2* Math.PI;
+  dragObject();
+  renderer.render(scene, camera);
+  requestAnimationFrame(animate);
+}
+
 animate()
