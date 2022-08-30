@@ -2,7 +2,6 @@
   "name": "cci-36",
   "version": "1.0.0",
   "description": "Atividades da disciplina CCI-36 de Fernando, Mateus e Davi - 2022",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +17,7 @@
   "homepage": "https://github.com/FernandoZanchitta/CCI-36#readme",
   "dependencies": {
     "dat.gui": "^0.7.9",
+    "parcel": "^2.7.0",
     "three": "^0.143.0"
   }
 }
