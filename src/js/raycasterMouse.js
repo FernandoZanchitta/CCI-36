@@ -58,6 +58,8 @@ function intersect(pos) {
 
 window.addEventListener('click', event => {
   if (draggable != null) {
+    console.log(draggable)
+    console.log(intersect(square, true));
     console.log(`dropping draggable ${draggable.userData.name}`)
     draggable = null;
     return;
@@ -73,11 +75,11 @@ window.addEventListener('click', event => {
       if(found.length >= 3)
         if (found[1].object.userData.draggable) {
           draggable = found[1].object
-          console.log(`found draggable 1: ${draggable.userData.name}`)
+          // console.log(`found draggable 1: ${draggable.userData.name}`)
         }
     if (found[0].object.userData.draggable) {
       draggable = found[0].object
-      console.log(`found draggable 0: ${draggable.userData.name}`)
+      // console.log(`found draggable 0: ${draggable.userData.name}`)
     }
   }
 })
@@ -105,10 +107,8 @@ function dragObject() {
 
 createFloor(scene)
 createTemplate(scene);
-// createBox()
+
 const square = createSquare(scene);
-// createSphere()
-// createCylinder()
 const triangleL1 = createTriangle(scene, { x: 20, y: 1, z: 20}, { x: -30, y: 1 / 2, z: 25 }, 0x6FA8DC,'TRIANGLEL1',  Math.PI/4 );
 const triangleL2 = createTriangle(scene, { x: 20, y: 1, z: 20}, { x: -1.8, y: 1 / 2, z: 53.5 },  0x674EA7, 'TRIANGLEL2', 3*Math.PI/4)
 const triangleM1 = createTriangle(scene, { x: 10*Math.sqrt(2), y: 1, z: 10*Math.sqrt(2) },{ x: -1, y: 1 / 2, z: 25 },  0xDC143C, 'TRIANGLEM1', Math.PI/2)
@@ -119,7 +119,7 @@ const parallelogram = createParallegram(scene);
 const gui = new dat.GUI();
 
 
-gui.add(triangleL1.rotation,'x',0,2*Math.PI).name('Triangulo L1');
+gui.add(triangleL1.rotation,'y',0,2*Math.PI).name('Triangulo L1');
 gui.add(triangleL2.rotation,'y',0,2*Math.PI).name('Triangulo L2');
 gui.add(triangleM1.rotation,'y',0,2*Math.PI).name('Triangulo M');
 gui.add(triangleS1.rotation,'y',0,2*Math.PI).name('Triangulo S1');
