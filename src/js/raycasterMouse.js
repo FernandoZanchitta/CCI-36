@@ -56,10 +56,71 @@ function intersect(pos) {
   return raycaster.intersectObjects(scene.children);
 }
 
+endPositions1stSolution = {
+  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
+  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
+  triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
+  triangleM1: {x: -1.151817794820150, z: 0.12124397840217505, rotation: 0.5 * Math.PI}, // on right
+  triangleS1: {x: -8.001239861870705, z: -21.08263201700317, rotation: 1.75 * Math.PI},
+  triangleS2: {x: -22.00578286706513, z: -7.032150998845271, rotation: 0.25 * Math.PI}
+}
+
+endPositions2ndSolution = {
+  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
+  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
+  triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
+  triangleM1: {x: -0.8487078488148475, z: 0.12124397840217505, rotation: Math.PI}, // on left
+  triangleS1: {x: 20.126501134616035, z: -7.0321509988452675, rotation: 1.25 * Math.PI},
+  triangleS2: {x: 5.94095557197085, z: -21.09645448007031, rotation: 1.75 * Math.PI}
+}
+
+endPositions3rdSolution = {
+  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
+  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
+  triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
+  triangleM1: {x: -0.7880858596137882, z: 0.12124397840217505, rotation: Math.PI},
+  
+}
+
+endPositions4thSolution = {
+  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
+  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
+  triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
+  triangleM1: {x: -0.7880858596137882, z: 0.12124397840217505, rotation: Math.PI},
+  
+}
+function comparePositions(target, currentPos, currentRotation){
+  return (Math.abs(target.x- currentPos.x) <= 0.3 && Math.abs(target.z-currentPos.z) <= 0.3 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.1)
+}
+function verifyStopCondition() {
+  solutions = [endPositions1stSolution, endPositions2ndSolution]
+  for (let i = 0; i < solutions.length; i++) {
+    squareMatchCondition = comparePositions(solutions[i].square, square.position, square.rotation.y)
+    triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
+    triangleM1MatchCondition = comparePositions(solutions[i].triangleM1, triangleM1.position, triangleM1.rotation.y)
+    triangleSMatchCondition = ((comparePositions(solutions[i].triangleS2, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS1, triangleS2.position, triangleS2.rotation.y)) || (comparePositions(solutions[i].triangleS1, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS2, triangleS2.position, triangleS2.rotation.y))) 
+    parallelogramMatchCondition = comparePositions(solutions[i].parallelogram, parallelogram.position, parallelogram.rotation.y)
+    console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
+    if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
+      return true;
+    }
+  }
+  return false;
+}
 window.addEventListener('click', event => {
   if (draggable != null) {
-    console.log(draggable)
-    console.log(intersect(square, true));
+    console.log(draggable.position)
+    hasEnded = verifyStopCondition()
+    console.log(hasEnded)
+    if (hasEnded == true){
+      console.log("You won!")
+      window.alert("Parabéns! Você conseguiu montar o tangram!")
+      window.location.reload()
+    }
     console.log(`dropping draggable ${draggable.userData.name}`)
     draggable = null;
     return;
