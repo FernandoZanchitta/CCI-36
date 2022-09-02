@@ -17,9 +17,10 @@ export function createFloor(scene) {
 }
 
 export function createTemplate(scene){
-    let scale = { x: 15, y: 1, z: 15}
+    let scale = { x: 14, y: 1, z: 14}
     let pos = { x: 13, y: scale.y / 2, z: 0 }
     const geometry = new THREE.BufferGeometry();
+    let square_two = Math.sqrt(2)
     const vertices = [];
     vertices.push( 2, 0, 0 );
     vertices.push( 0, 0, 0 );
@@ -28,25 +29,25 @@ export function createTemplate(scene){
     vertices.push( -0.3, 0, 1 );
     vertices.push( 0.7, 0, 2 );
     vertices.push( 0.7, 0, 2 );
-    vertices.push( 0.9, 0, 1.7 );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two/2 );
     vertices.push( 0, 0, 1 );
     vertices.push( 0, 0, 1 );
-    vertices.push( 0.9, 0, 1.7 );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two/2 );
     vertices.push( 2, 0, 1 );
     vertices.push( 2, 0, 1 );
-    vertices.push( 0.9, 0, 1.7 );
-    vertices.push( 0.9, 0, 2.35 );
-    vertices.push( 0.9, 0, 2.35 );
-    vertices.push( 1.6, 0, 2.35 );
-    vertices.push( 1.6, 0, 1.7 );
-    vertices.push( 1.6, 0, 1.7 );
-    vertices.push( 2.35, 0, 1 );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two/2 );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two );
+    vertices.push( 1.7, 0, 1 + square_two );
+    vertices.push( 1.7, 0, 1 + square_two/2 );
+    vertices.push( 1.7, 0, 1 + square_two/2 );
+    vertices.push( 1.7 + square_two/2, 0, 1 );
     vertices.push( 2, 0, 1 );
     vertices.push( 2, 0, 1 );
-    vertices.push( 0.9, 0, 2.35 );
-    vertices.push( 1.6, 0, 1.7 );
-    vertices.push( 1.6, 0, 1.7 );
-    vertices.push( 2.35, 0, 1 );
+    vertices.push( 1.7 - square_two/2, 0, 1 + square_two );
+    vertices.push( 1.7, 0, 1 + square_two/2 );
+    vertices.push( 1.7, 0, 1 + square_two/2 );
+    vertices.push( 1.7 + square_two/2, 0, 1 );
     vertices.push( 2, 0, 1 );
     vertices.push( 2, 0, 1 );
     vertices.push( 2, 0, 0 );
