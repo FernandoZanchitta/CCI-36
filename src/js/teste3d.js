@@ -1,9 +1,6 @@
 import * as THREE from 'three'
-import {OrbitControls} from
-"three/examples/jsm/controls/OrbitControls.js";
 import * as dat from 'dat.gui';
 
-import nebula from '../img/nebula.jpg';
 import stars from '../img/stars.jpg';
 
 const renderer = new THREE.WebGLRenderer();
@@ -107,9 +104,9 @@ function animate(time){
 
 
   rayCaster.setFromCamera(mousePosition,camera);
-  const intersects = rayCaster. intersectObjects(scene.children);
-  console.log(intersects);
-
+  const intersects = rayCaster.intersectObjects(scene.children);
+  console.log(scene.children);
+  console.log("intersects");
 
 
 

@@ -1,8 +1,4 @@
 import * as THREE from 'three'
-import { BufferGeometry } from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import * as dat from 'dat.gui';
 
 // floor
 export function createFloor(scene) {
@@ -86,6 +82,8 @@ export function createBox(scene) {
     box.userData.draggable = true
     box.userData.name = 'BOX'
 }
+
+// square
 export function createSquare(scene) {
     let scale = { x: 10, y: 1, z: 10}
     let pos = { x: -1.7, y: scale.y / 2, z: 25 }
@@ -111,10 +109,8 @@ export function createSquare(scene) {
     parallelogram.userData.name = 'SQUARE'
     return parallelogram;
 }
-
-export function createTrianglelarge1(scene) {
-    let scale = { x: 20, y: 1, z: 20}
-    let pos = { x: -30, y: scale.y / 2, z: 25 }
+// triangle
+export function createTriangle(scene, scale, pos, color, name, y_rotation) {
     const geometry = new THREE.BufferGeometry();
     const vertices = [];
     vertices.push( 1, 0, 0 );
@@ -123,109 +119,19 @@ export function createTrianglelarge1(scene) {
     geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
 
     const triangle = new THREE.Mesh(geometry, 
-        new THREE.MeshBasicMaterial({ color: 0x6FA8DC }));
+        new THREE.MeshBasicMaterial({ color: color }));
     triangle.position.set(pos.x, pos.y, pos.z);
     triangle.scale.set(scale.x, scale.y, scale.z);
     triangle.castShadow = true;
     triangle.receiveShadow = true;
     scene.add(triangle);
-    triangle.rotation.y = Math.PI/4;
+    triangle.rotation.y = y_rotation;
     triangle.userData.draggable = true;
-    triangle.userData.name = 'TRIANGLEL1';
-    return triangle;
-}
-export function createTrianglelarge2(scene) {
-    let scale = { x: 20, y: 1, z: 20}
-    let pos = { x: -1.8, y: scale.y / 2, z: 53.5 }
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    vertices.push( 1, 0, 0 );
-    vertices.push( 0, 0, 1 );
-    vertices.push( 1, 0, 1 );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-
-    const triangle = new THREE.Mesh(geometry, 
-        new THREE.MeshBasicMaterial({ color: 0x674EA7 }));
-    triangle.position.set(pos.x, pos.y, pos.z);
-    triangle.scale.set(scale.x, scale.y, scale.z);
-    triangle.castShadow = true;
-    triangle.receiveShadow = true;
-    scene.add(triangle)
-  
-    triangle.userData.draggable = true;
-    triangle.rotation.y = 3*Math.PI/4;
-    triangle.userData.name = 'TRIANGLE2'
+    triangle.userData.name = name;
     return triangle;
 }
 
-export function createTriangleMedium1(scene) {
-    let scale = { x: 10*Math.sqrt(2), y: 1, z: 10*Math.sqrt(2) }
-    let pos = { x: -1, y: scale.y / 2, z: 25 }
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    vertices.push( 1, 0, 0 );
-    vertices.push( 0, 0, 1 );
-    vertices.push( 1, 0, 1 );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-
-    const triangle = new THREE.Mesh(geometry, 
-        new THREE.MeshBasicMaterial({ color: 0xDC143C }));
-    triangle.position.set(pos.x, pos.y, pos.z);
-    triangle.scale.set(scale.x, scale.y, scale.z);
-    triangle.castShadow = true;
-    triangle.receiveShadow = true;
-    scene.add(triangle)
-    triangle.rotation.y = Math.PI/2;
-    triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLEM1'
-    return triangle;
-}
-
-export function createTriangleSmall1(scene) {
-    let scale = { x: 10, y: 1, z: 10}
-    let pos = { x: 19.5, y: scale.y / 2, z: 32.5 }
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    vertices.push( 1, 0, 0 );
-    vertices.push( 0, 0, 1 );
-    vertices.push( 1, 0, 1 );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-
-    const triangle = new THREE.Mesh(geometry, 
-        new THREE.MeshBasicMaterial({ color: 0xDC143C }));
-    triangle.position.set(pos.x, pos.y, pos.z);
-    triangle.scale.set(scale.x, scale.y, scale.z);
-    triangle.castShadow = true;
-    triangle.receiveShadow = true;
-    scene.add(triangle)
-    triangle.rotation.y = 5*Math.PI/4;
-    triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLES1'
-    return triangle;
-}
-
-export function createTriangleSmall2(scene) {
-    let scale = { x: 10, y: 1, z: 10}
-    let pos = { x: -1.5, y: scale.y / 2, z: 10.5 }
-    const geometry = new THREE.BufferGeometry();
-    const vertices = [];
-    vertices.push( 1, 0, 0 );
-    vertices.push( 0, 0, 1 );
-    vertices.push( 1, 0, 1 );
-    geometry.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
-
-    const triangle = new THREE.Mesh(geometry, 
-        new THREE.MeshBasicMaterial({ color: 0xBF9000 }));
-    triangle.position.set(pos.x, pos.y, pos.z);
-    triangle.scale.set(scale.x, scale.y, scale.z);
-    triangle.castShadow = true;
-    triangle.receiveShadow = true;
-    scene.add(triangle)
-    triangle.rotation.y = -Math.PI/4;
-    triangle.userData.draggable = true
-    triangle.userData.name = 'TRIANGLES2'
-    return triangle;
-}
+// parallelogram
 export function createParallegram(scene){
     let scale = { x: 10, y: 1, z: 10}
     let pos = { x: -8.5, y: scale.y / 2, z: 3.5 }
