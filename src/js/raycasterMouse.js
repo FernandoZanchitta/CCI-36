@@ -81,8 +81,9 @@ endPositions3rdSolution = {
   parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
-  triangleM1: {x: -0.7880858596137882, z: 0.12124397840217505, rotation: Math.PI},
-  
+  triangleM1: {x: -0.9699518960134492, z:  -14.064302492202017, rotation: 0},
+  triangleS1: {x:  -8.00210229803104, z:   7.03215050433382, rotation: 0.75 * Math.PI},
+  triangleS2: {x:  -22.066404858434446, z: -6.910907011917052, rotation: 0.25 * Math.PI}
 }
 
 endPositions4thSolution = {
@@ -90,14 +91,15 @@ endPositions4thSolution = {
   parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
-  triangleM1: {x: -0.7880858596137882, z: 0.12124397840217505, rotation: Math.PI},
-  
+  triangleM1: {x: -0.8487079084972664, z:  -13.94305849674777, rotation: 1.5 *Math.PI},
+  triangleS1: {x:  6.062198706954534, z:  7.153394474209915, rotation: 0.75 * Math.PI},
+  triangleS2: {x:  22.915110778889968, z: 10.06324970713659, rotation: 1.25 * Math.PI}
 }
 function comparePositions(target, currentPos, currentRotation){
   return (Math.abs(target.x- currentPos.x) <= 0.3 && Math.abs(target.z-currentPos.z) <= 0.3 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.1)
 }
 function verifyStopCondition() {
-  solutions = [endPositions1stSolution, endPositions2ndSolution]
+  solutions = [endPositions1stSolution, endPositions2ndSolution, endPositions3rdSolution, endPositions4thSolution]
   for (let i = 0; i < solutions.length; i++) {
     squareMatchCondition = comparePositions(solutions[i].square, square.position, square.rotation.y)
     triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
@@ -111,6 +113,8 @@ function verifyStopCondition() {
   }
   return false;
 }
+
+let hasEnded = false
 window.addEventListener('click', event => {
   if (draggable != null) {
     console.log(draggable.position)
@@ -119,7 +123,6 @@ window.addEventListener('click', event => {
     if (hasEnded == true){
       console.log("You won!")
       window.alert("Parabéns! Você conseguiu montar o tangram!")
-      window.location.reload()
     }
     console.log(`dropping draggable ${draggable.userData.name}`)
     draggable = null;
@@ -166,7 +169,7 @@ function dragObject() {
   }
 }
 
-createFloor(scene)
+const floor = createFloor(scene)
 createTemplate(scene);
 
 const square = createSquare(scene);
@@ -193,6 +196,9 @@ function animate() {
   // triangleL1.rotation.z += options.angleTriangleLarge1 * 2* Math.PI;
   dragObject();
   renderer.render(scene, camera);
+  if (hasEnded == true) {
+    floor.material.color.setHex(0x00502c)
+  }
   requestAnimationFrame(animate);
 }
 

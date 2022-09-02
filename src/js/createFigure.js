@@ -14,6 +14,7 @@ export function createFloor(scene) {
     scene.add(blockPlane);
   
     blockPlane.userData.ground = true
+    return blockPlane
 }
 
 export function createTemplate(scene){
