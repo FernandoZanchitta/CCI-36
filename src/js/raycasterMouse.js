@@ -97,27 +97,27 @@ endPositions4thSolution = {
   triangleS2: {x:  19.915110778889968, z: -7.1, rotation: 1.25 * Math.PI}
 }
 function comparePositions(target, currentPos, currentRotation){
-  console.log(`X difference ${Math.abs(target.x- currentPos.x)}` );
-  console.log(`Z difference ${Math.abs(target.z-currentPos.z)}` );
-  console.log(`Angle difference ${Math.abs((target.rotation - currentRotation)/(2*Math.PI))}` );
+  // console.log(`X difference ${Math.abs(target.x- currentPos.x)}` );
+  // console.log(`Z difference ${Math.abs(target.z-currentPos.z)}` );
+  // console.log(`Angle difference ${Math.abs((target.rotation - currentRotation)/(2*Math.PI))}` );
   return (Math.abs(target.x- currentPos.x) <= 0.5 && Math.abs(target.z-currentPos.z) <= 0.5 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.25)
 }
 function verifyStopCondition() {
   solutions = [endPositions1stSolution, endPositions2ndSolution, endPositions3rdSolution, endPositions4thSolution]
   for (let i = 0; i < solutions.length; i++) {
-    console.log("Validando SQUARE");
+    // console.log("Validando SQUARE");
     squareMatchCondition = comparePositions(solutions[i].square, square.position, square.rotation.y)
-    console.log("Validando TriangleL1 e triangleL2");
+    // console.log("Validando TriangleL1 e triangleL2");
     triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
-    console.log("Validando TRIANGLEM1");
+    // console.log("Validando TRIANGLEM1");
     triangleM1MatchCondition = comparePositions(solutions[i].triangleM1, triangleM1.position, triangleM1.rotation.y)
-    console.log("---------Validando TRIANGLES----------");
+    // console.log("---------Validando TRIANGLES----------");
     triangleSMatchCondition = ((comparePositions(solutions[i].triangleS2, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS1, triangleS2.position, triangleS2.rotation.y)) || (comparePositions(solutions[i].triangleS1, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS2, triangleS2.position, triangleS2.rotation.y))) 
-    console.log("Validando PARALELOGRAM");
+    // console.log("Validando PARALELOGRAM");
     parallelogramMatchCondition = comparePositions(solutions[i].parallelogram, parallelogram.position, parallelogram.rotation.y)
-    console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
+    // console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
     if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
-      console.log("Solution Found")
+      // console.log("Solution Found")
       return true
     }
     // if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
@@ -131,11 +131,11 @@ function verifyStopCondition() {
 let hasEnded = false
 window.addEventListener('click', event => {
   if (draggable != null) {
-    console.log(draggable.position)
+    // console.log(draggable.position)
     hasEnded = verifyStopCondition()
-    console.log(hasEnded)
+    // console.log(hasEnded)
     if (hasEnded == true){
-      console.log("You won!")
+      // console.log("You won!")
       let divBody = document.getElementById("successContainer")
       let successHtml = document.createElement("div")
       let h1Html = document.createElement("h1")
@@ -148,7 +148,7 @@ window.addEventListener('click', event => {
       button.textContent = "Reiniciar Jogo"
       h1Html.textContent = "Parabéns, você concluiu o jogo!"
     }
-    console.log(`dropping draggable ${draggable.userData.name}`)
+    // console.log(`dropping draggable ${draggable.userData.name}`)
     draggable = null;
     return;
   }
