@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import * as dat from 'dat.gui';
+import '../../src/style.css'
 import { createTriangle, createFloor, createTemplate, createSquare, createTrianglelarge1, createTrianglelarge2, createTriangleMedium1, createTriangleSmall1, createTriangleSmall2, createParallegram } from './createFigure'
 
 // CAMERA
@@ -111,6 +112,7 @@ function verifyStopCondition() {
       return true;
     }
   }
+  // return true; // test case
   return false;
 }
 
@@ -122,7 +124,17 @@ window.addEventListener('click', event => {
     console.log(hasEnded)
     if (hasEnded == true){
       console.log("You won!")
-      window.alert("Parabéns! Você conseguiu montar o tangram!")
+      let divBody = document.getElementById("successContainer")
+      let successHtml = document.createElement("div")
+      let h1Html = document.createElement("h1")
+      let button = document.createElement("button")
+      button.onclick = () => window.location.reload()
+      divBody.appendChild(successHtml)
+      successHtml.appendChild(h1Html)
+      successHtml.appendChild(button)
+      successHtml.setAttribute("id", "containerMessage")
+      button.textContent = "Reiniciar Jogo"
+      h1Html.textContent = "Parabéns, você concluiu o jogo!"
     }
     console.log(`dropping draggable ${draggable.userData.name}`)
     draggable = null;
