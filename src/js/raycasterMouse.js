@@ -57,8 +57,8 @@ function intersect(pos) {
 }
 
 endPositions1stSolution = {
-  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  square: {x: -10.851337908912921, z: -23.82707571606949, rotation: 0},
+  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
   triangleM1: {x: -1.151817794820150, z: 0.12124397840217505, rotation: 0.5 * Math.PI}, // on right
@@ -67,8 +67,8 @@ endPositions1stSolution = {
 }
 
 endPositions2ndSolution = {
-  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  square: {x: -10.851337908912921, z: -23.82707571606949, rotation: 0},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
   triangleM1: {x: -0.8487078488148475, z: 0.12124397840217505, rotation: Math.PI}, // on left
@@ -77,8 +77,8 @@ endPositions2ndSolution = {
 }
 
 endPositions3rdSolution = {
-  square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  square: {x: -10.851337908912921, z: -23.82707571606949, rotation: 0},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
   triangleM1: {x: -0.9699518960134492, z:  -14.064302492202017, rotation: 0},
@@ -88,7 +88,7 @@ endPositions3rdSolution = {
 
 endPositions4thSolution = {
   square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
   triangleM1: {x: -0.8487079084972664, z:  -13.94305849674777, rotation: 1.5 *Math.PI},
@@ -96,20 +96,27 @@ endPositions4thSolution = {
   triangleS2: {x:  22.915110778889968, z: 10.06324970713659, rotation: 1.25 * Math.PI}
 }
 function comparePositions(target, currentPos, currentRotation){
+  console.log(`X difference ${Math.abs(target.x- currentPos.x)}` );
+  console.log(`Z difference ${Math.abs(target.z-currentPos.z)}` );
+  console.log(`Angle difference ${Math.abs((target.rotation - currentRotation)/(2*Math.PI))}` );
   return (Math.abs(target.x- currentPos.x) <= 0.3 && Math.abs(target.z-currentPos.z) <= 0.3 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.1)
 }
 function verifyStopCondition() {
   solutions = [endPositions1stSolution, endPositions2ndSolution, endPositions3rdSolution, endPositions4thSolution]
   for (let i = 0; i < solutions.length; i++) {
     squareMatchCondition = comparePositions(solutions[i].square, square.position, square.rotation.y)
-    triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
-    triangleM1MatchCondition = comparePositions(solutions[i].triangleM1, triangleM1.position, triangleM1.rotation.y)
-    triangleSMatchCondition = ((comparePositions(solutions[i].triangleS2, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS1, triangleS2.position, triangleS2.rotation.y)) || (comparePositions(solutions[i].triangleS1, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS2, triangleS2.position, triangleS2.rotation.y))) 
+    // triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
+    // triangleM1MatchCondition = comparePositions(solutions[i].triangleM1, triangleM1.position, triangleM1.rotation.y)
+    // triangleSMatchCondition = ((comparePositions(solutions[i].triangleS2, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS1, triangleS2.position, triangleS2.rotation.y)) || (comparePositions(solutions[i].triangleS1, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS2, triangleS2.position, triangleS2.rotation.y))) 
     parallelogramMatchCondition = comparePositions(solutions[i].parallelogram, parallelogram.position, parallelogram.rotation.y)
-    console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
-    if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
-      return true;
+    // console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
+    if(parallelogramMatchCondition && squareMatchCondition){
+      console.log("Solution Found")
+      return true
     }
+    // if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
+    //   return true;
+    // }
   }
   return false;
 }
@@ -188,8 +195,8 @@ gui.add(triangleL2.rotation,'y',0,2*Math.PI).name('Triangulo L2');
 gui.add(triangleM1.rotation,'y',0,2*Math.PI).name('Triangulo M');
 gui.add(triangleS1.rotation,'y',0,2*Math.PI).name('Triangulo S1');
 gui.add(triangleS2.rotation,'y',0,2*Math.PI).name('Triangulo S2');
-gui.add(square.rotation,'y',0,2*Math.PI).name('Quadrado');
-gui.add(parallelogram.rotation,'y',0,2*Math.PI).name('Paralelogramo');
+gui.add(square.rotation,'y',-Math.PI/4,Math.PI/4).name('Quadrado');
+gui.add(parallelogram.rotation,'y',-Math.PI/2,Math.PI/2).name('Paralelogramo');
 
 
 function animate() {
