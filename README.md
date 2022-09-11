@@ -41,7 +41,7 @@ Para a movimentação das peças, é utilizado a função auxiliar intersectObje
 A checagem para concluir o jogo se dá ao mapear todos os vértices das peças com os vértices da área cinza. Caso coincida, tolerando uma pequena margem de erro, então o usuário venceu o jogo.
 
 ## Funções point-in-polygon e polygon-intersection-area:
-Utilizamos a função intersect para saber se o mouse clicou em um dos polígonos do tangram, e, caso positivo, transferimos a possibilidade de movimentação, através de arrasto do mouse, para o polígono.
+Conforme mencionado, quando selecionamos uma peça para mover, a função intersectObjects realiza a etapa de verificar se o mouse (um ponto) está em cima de alguma peça (polígono). Assim, o usuário consegue escolher uma peça e movê-la. Nisso consiste a função point-in-polygon do projeto.
 
 ## Função polygon-intersection-area:
 Para mapear a interseção entre áreas, optou-se por simplicidade realizar o mapeamento de vértices chave do Template de resposta , e vértices de referência de cada peça do Tangram. Nesse contexto, para validar se uma peça se encontra posicionada corretamente, calcula-se a distância entre as coordenadas do vértice (x,z) e a angulação da peça em relação ao vértice chave correspondente do template.
