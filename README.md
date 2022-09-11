@@ -32,10 +32,9 @@ Como o jogo Tangram deve estar em 2D e a ferramenta utilizada permite confecçõ
 
 Para a rotação, foi escolhido um método diferente daquele utilizado e apresentado pelo professor em sala, para que fosse permitido uma rotação mais exata das peças.
 
-Para a movimentação das peças, é utilizado a função auxiliar intersectObjects para verificar qual peça foi selecionada. Assim, é possível move-la de posição ao mover o mouse. Após isso, o usuário deve clicar novamente na tela para soltar a peça. No código, para tal tarefa é utilizado a variável draggable, que pode receber uma peça ou null e dependendo de seu valor, move-se uma peça ou não, respectivamente.
+Para a movimentação das peças, é utilizado a função auxiliar intersectObjects para verificar qual peça foi selecionada. Assim, é possível movê-la de posição ao mover o mouse. Após isso, o usuário deve clicar novamente na tela para soltar a peça. No código, para tal tarefa é utilizado a variável draggable, que pode receber uma peça ou null e dependendo de seu valor, move-se uma peça ou não, respectivamente.
 
 A checagem para concluir o jogo se dá ao mapear todos os vértices das peças com os vértices da área cinza. Caso coincida, tolerando uma pequena margem de erro, então o usuário venceu o jogo.
 
-## Função point-in-polygon:
-
-## Função polygon-intersection-area:
+## Funções point-in-polygon e polygon-intersection-area:
+Utilizamos a função intersect para saber se o mouse clicou em um dos polígonos do tangram, e, caso positivo, transferimos a possibilidade de movimentação, através de arrasto do mouse, para o polígono. Como verificamos se o jogo terminou através da verificação das 4 soluções possíveis (verificar x, y e rotação das peças com uma certa margem de erro), não foi necessário implementar a polygon-intersection-area
