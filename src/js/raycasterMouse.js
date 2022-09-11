@@ -59,7 +59,7 @@ function intersect(pos) {
 
 endPositions1stSolution = {
   square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
   triangleM1: {x: -1.151817794820150, z: 0.12124397840217505, rotation: 0.5 * Math.PI}, // on right
@@ -69,17 +69,17 @@ endPositions1stSolution = {
 
 endPositions2ndSolution = {
   square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -0.9675626370954572, z: 13.992444290310656, rotation: 0.75 * Math.PI},
   triangleM1: {x: -0.8487078488148475, z: 0.12124397840217505, rotation: Math.PI}, // on left
-  triangleS1: {x: 20.126501134616035, z: -7.0321509988452675, rotation: 1.25 * Math.PI},
+  triangleS1: {x: 20.126501134616035, z: -7.0621509988452675, rotation: 1.25 * Math.PI},
   triangleS2: {x: 5.94095557197085, z: -21.09645448007031, rotation: 1.75 * Math.PI}
 }
 
 endPositions3rdSolution = {
   square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
   triangleM1: {x: -0.9699518960134492, z:  -14.064302492202017, rotation: 0},
@@ -89,28 +89,40 @@ endPositions3rdSolution = {
 
 endPositions4thSolution = {
   square: {x: -10.851337908912921, z: -33.82707571606949, rotation: 0},
-  parallelogram: {x: -0.585097395913305, z: -14.062714629232534, rotation: Math.PI},
+  parallelogram: {x: -20.585097395913305, z: -24.062714629232534, rotation: 0},
   triangleL1: {x: 3.091721447379814, z:  0.24248795665735434, rotation: 0.75 * Math.PI},
   triangleL2: {x: -1.0305739619858068, z: -28.128606962450213, rotation: 1.75 * Math.PI},
   triangleM1: {x: -0.8487079084972664, z:  -13.94305849674777, rotation: 1.5 *Math.PI},
-  triangleS1: {x:  6.062198706954534, z:  7.153394474209915, rotation: 0.75 * Math.PI},
-  triangleS2: {x:  22.915110778889968, z: 10.06324970713659, rotation: 1.25 * Math.PI}
+  triangleS1: {x:  6.362198706954534, z:  7.153394474209915, rotation: 0.75 * Math.PI},
+  triangleS2: {x:  19.915110778889968, z: -7.1, rotation: 1.25 * Math.PI}
 }
 function comparePositions(target, currentPos, currentRotation){
-  return (Math.abs(target.x- currentPos.x) <= 0.3 && Math.abs(target.z-currentPos.z) <= 0.3 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.1)
+  console.log(`X difference ${Math.abs(target.x- currentPos.x)}` );
+  console.log(`Z difference ${Math.abs(target.z-currentPos.z)}` );
+  console.log(`Angle difference ${Math.abs((target.rotation - currentRotation)/(2*Math.PI))}` );
+  return (Math.abs(target.x- currentPos.x) <= 0.5 && Math.abs(target.z-currentPos.z) <= 0.5 && Math.abs((target.rotation - currentRotation)/(2*Math.PI)) <= 0.25)
 }
 function verifyStopCondition() {
   solutions = [endPositions1stSolution, endPositions2ndSolution, endPositions3rdSolution, endPositions4thSolution]
   for (let i = 0; i < solutions.length; i++) {
+    console.log("Validando SQUARE");
     squareMatchCondition = comparePositions(solutions[i].square, square.position, square.rotation.y)
+    console.log("Validando TriangleL1 e triangleL2");
     triangleLMatchCondition = ((comparePositions(solutions[i].triangleL2, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL1, triangleL2.position, triangleL2.rotation.y)) || (comparePositions(solutions[i].triangleL1, triangleL1.position, triangleL1.rotation.y) && comparePositions(solutions[i].triangleL2, triangleL2.position, triangleL2.rotation.y)))
+    console.log("Validando TRIANGLEM1");
     triangleM1MatchCondition = comparePositions(solutions[i].triangleM1, triangleM1.position, triangleM1.rotation.y)
+    console.log("---------Validando TRIANGLES----------");
     triangleSMatchCondition = ((comparePositions(solutions[i].triangleS2, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS1, triangleS2.position, triangleS2.rotation.y)) || (comparePositions(solutions[i].triangleS1, triangleS1.position, triangleS1.rotation.y) && comparePositions(solutions[i].triangleS2, triangleS2.position, triangleS2.rotation.y))) 
+    console.log("Validando PARALELOGRAM");
     parallelogramMatchCondition = comparePositions(solutions[i].parallelogram, parallelogram.position, parallelogram.rotation.y)
     console.log(squareMatchCondition, triangleLMatchCondition, triangleM1MatchCondition, triangleSMatchCondition, parallelogramMatchCondition)
     if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
-      return true;
+      console.log("Solution Found")
+      return true
     }
+    // if(squareMatchCondition && triangleLMatchCondition && triangleM1MatchCondition && triangleSMatchCondition && parallelogramMatchCondition) {
+    //   return true;
+    // }
   }
   // return true; // test case
   return false;
@@ -189,7 +201,7 @@ const triangleL1 = createTriangle(scene, { x: 20, y: 1, z: 20}, { x: -30, y: 1 /
 const triangleL2 = createTriangle(scene, { x: 20, y: 1, z: 20}, { x: -1.8, y: 1 / 2, z: 53.5 },  0x674EA7, 'TRIANGLEL2', 3*Math.PI/4)
 const triangleM1 = createTriangle(scene, { x: 10*Math.sqrt(2), y: 1, z: 10*Math.sqrt(2) },{ x: -1, y: 1 / 2, z: 25 },  0xDC143C, 'TRIANGLEM1', Math.PI/2)
 const triangleS1 = createTriangle(scene,{ x: 10, y: 1, z: 10}, { x: 19.5, y: 1/ 2, z: 32.5 },0xDC143C,'TRIANGLES1', 5*Math.PI/4)
-const triangleS2 = createTriangle(scene,{ x: 10, y: 1, z: 10}, { x: -1.5, y: 1 / 2, z: 10.5 }, 0xBF9000, 'TRIANGLES2', -Math.PI/4)
+const triangleS2 = createTriangle(scene,{ x: 10, y: 1, z: 10}, { x: -1.5, y: 1 / 2, z: 10.5 }, 0xBF9000, 'TRIANGLES2', 7*Math.PI/4)
 const parallelogram = createParallegram(scene);
 
 const gui = new dat.GUI();
@@ -200,8 +212,8 @@ gui.add(triangleL2.rotation,'y',0,2*Math.PI).name('Triangulo L2');
 gui.add(triangleM1.rotation,'y',0,2*Math.PI).name('Triangulo M');
 gui.add(triangleS1.rotation,'y',0,2*Math.PI).name('Triangulo S1');
 gui.add(triangleS2.rotation,'y',0,2*Math.PI).name('Triangulo S2');
-gui.add(square.rotation,'y',0,2*Math.PI).name('Quadrado');
-gui.add(parallelogram.rotation,'y',0,2*Math.PI).name('Paralelogramo');
+gui.add(square.rotation,'y',-Math.PI/4,Math.PI/4).name('Quadrado');
+gui.add(parallelogram.rotation,'y',-Math.PI/2,Math.PI/2).name('Paralelogramo');
 
 
 function animate() {
