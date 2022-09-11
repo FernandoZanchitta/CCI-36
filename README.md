@@ -40,7 +40,7 @@ Para a movimentação das peças, é utilizado a função auxiliar intersectObje
 
 A checagem para concluir o jogo se dá ao mapear todos os vértices das peças com os vértices da área cinza. Caso coincida, tolerando uma pequena margem de erro, então o usuário venceu o jogo.
 
-## Funções point-in-polygon e polygon-intersection-area:
+## Funções point-in-polygon:
 Conforme mencionado, quando selecionamos uma peça para mover, a função intersectObjects realiza a etapa de verificar se o mouse (um ponto) está em cima de alguma peça (polígono). Assim, o usuário consegue escolher uma peça e movê-la. Nisso consiste a função point-in-polygon do projeto.
 
 ## Função polygon-intersection-area:
