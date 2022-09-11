@@ -1,5 +1,9 @@
 # CCI-36
-Atividades da disciplina CCI-36 de Fernando, Mateus e Davi - 2022
+Atividades da disciplina CCI-36 - 2022:
+### Alunos:
+- Fernando Zanchitta
+- Mateus Nobre
+- Davi Xie
 
 ## Utilização do Laboratório 1:
 - Para instalar localmente o projeto faça:
@@ -37,4 +41,9 @@ Para a movimentação das peças, é utilizado a função auxiliar intersectObje
 A checagem para concluir o jogo se dá ao mapear todos os vértices das peças com os vértices da área cinza. Caso coincida, tolerando uma pequena margem de erro, então o usuário venceu o jogo.
 
 ## Funções point-in-polygon e polygon-intersection-area:
-Utilizamos a função intersect para saber se o mouse clicou em um dos polígonos do tangram, e, caso positivo, transferimos a possibilidade de movimentação, através de arrasto do mouse, para o polígono. Como verificamos se o jogo terminou através da verificação das 4 soluções possíveis (verificar x, y e rotação das peças com uma certa margem de erro), não foi necessário implementar a polygon-intersection-area
+Utilizamos a função intersect para saber se o mouse clicou em um dos polígonos do tangram, e, caso positivo, transferimos a possibilidade de movimentação, através de arrasto do mouse, para o polígono.
+
+## Função polygon-intersection-area:
+Para mapear a interseção entre áreas, optou-se por simplicidade realizar o mapeamento de vértices chave do Template de resposta , e vértices de referência de cada peça do Tangram. Nesse contexto, para validar se uma peça se encontra posicionada corretamente, calcula-se a distância entre as coordenadas do vértice (x,z) e a angulação da peça em relação ao vértice chave correspondente do template.
+
+Para que o jogo inteprete que a peça está corretamente posicionada, verificamos se as coordenadas e ângulo estão a uma margem de erro $\epsilon$ arbitrado no código.
