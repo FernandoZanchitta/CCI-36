@@ -1,0 +1,55 @@
+body{
+    overflow-x: hidden;
+}
+
+@keyframes slideInFromLeft{
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+#containerMessage {
+    border-radius: 30px;
+    background-color: #424140;
+    width: 50%;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1{
+    text-align: center;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+button{
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    width: 150px;
+    height: 40px;
+    font-size: 16;
+    color: #FFF;
+    background-color: #E69A0F;
+}
+
+button:hover{
+    background-color: #746009;
+    transition: 0.3s;
+    border-color: #FFF;
+    color: #FFF;
+    border: none;
+}
