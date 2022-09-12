@@ -34,7 +34,7 @@ Para confeccionar o jogo, utilizamos a ferramenta THREE.JS que permite de forma 
 
 Como o jogo Tangram deve estar em 2D e a ferramenta utilizada permite confecções a nível 3D, foi mantido todos os objetos em um mesmo nível e sem espessura (à excessão da base).
 
-Para a rotação, foi escolhido um método diferente daquele utilizado e apresentado pelo professor em sala, para que fosse permitido uma rotação mais exata das peças.
+Para a rotação, foi escolhido um método diferente daquele utilizado e apresentado pelo professor em sala, para que fosse permitido uma rotação mais exata das peças. Foi utilizado a biblioteca $\textit{dat.gui}$ que permite a criação de uma barra de opções em formato de slider, que permite a alteração de parâmetros da figura em tempo real. Dessa forma, facilitou-se a rotação das peças para encaixe no template.
 
 Para a movimentação das peças, é utilizado a função auxiliar intersectObjects para verificar qual peça foi selecionada. Assim, é possível movê-la de posição ao mover o mouse. Após isso, o usuário deve clicar novamente na tela para soltar a peça. No código, para tal tarefa é utilizado a variável draggable, que pode receber uma peça ou null e dependendo de seu valor, move-se uma peça ou não, respectivamente.
 
